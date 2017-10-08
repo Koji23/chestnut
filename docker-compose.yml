@@ -1,0 +1,21 @@
+version: '3'
+services:
+  # Mango: Backend Elixir API 
+  tm_mango:
+    build:
+      context: .
+      dockerfile: ./mango/Dockerfile
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./mango:/app
+    depends_on:
+      - tm_mango_db
+  tm_mango_db:
+    image: postgres:10.0
+    volumes:
+       - ./mango_database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=abc123
+      - POSTGRES_USER=mango
+
