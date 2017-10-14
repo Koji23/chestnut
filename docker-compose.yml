@@ -1,23 +1,38 @@
 version: '3'
 services:
-  # Mango: Backend Elixir API 
-  tm_mango:
+  # Elixir/Phoenix API
+  backend:
     build:
       context: .
-      dockerfile: ./mango/Dockerfile
+      dockerfile: ./backend/Dockerfile
     ports:
       - "4000:4000"
     volumes:
-      - ./mango:/app
+      - ./backend:/app
     depends_on:
-      - tm_mango_db
-  tm_mango_db:
+      - database
+  # PostgreSQL Database
+  database:
     build:
       context: .
-      dockerfile: ./mango_database/Dockerfile
+      dockerfile: ./database/Dockerfile
     volumes:
-       - ./mango_database:/var/lib/postgresql/data
+       - ./database:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=abc123
-      - POSTGRES_USER=mango
+      - POSTGRES_USER=root
+  # Nginx Reverse Proxy
+  proxy:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    ports:
+      - '80:80'
+  # React Client
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    volumes:
+      - ./frontend/public:/usr/local/apache2/htdocs/
 

@@ -9,7 +9,7 @@
 
 # From Scratch
 
-    1. docker-compose run --rm rpp_mango mix phx.new . --app mango
+    1. docker-compose run --rm backend mix phx.new . --app chestnut
 
     2. update db config in dev.exs
 
