@@ -1,6 +1,6 @@
 version: '3'
 services:
-  # Elixir/Phoenix API
+  ### Elixir/Phoenix API (dev / prod)
   backend:
     build:
       context: .
@@ -10,9 +10,9 @@ services:
     volumes:
       - ./backend:/app
     depends_on:
-      - database
-  # PostgreSQL Database
-  database:
+      - db
+  ### PostgreSQL Database
+  db:
     build:
       context: .
       dockerfile: ./database/Dockerfile
@@ -20,19 +20,26 @@ services:
        - ./database:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=abc123
-      - POSTGRES_USER=root
+      - POSTGRES_USER=chestnut
+      - PGDATA=/var/lib/postgresql/data/pgdata # https://stackoverflow.com/questions/35679995/how-to-use-postgresql-container-with-existing-data
   # Nginx Reverse Proxy
-  proxy:
-    build:
-      context: .
-      dockerfile: nginx.Dockerfile
-    ports:
-      - '80:80'
-  # React Client
+  # nginx:
+  #   build:
+  #     context: .
+  #     dockerfile: ./nginx/Dockerfile
+  #   ports:
+  #     - '80:80'
+  ### React Client for Developement
   frontend:
     build:
       context: .
       dockerfile: ./frontend/Dockerfile
+    ports:
+      - '3000:3000'
     volumes:
-      - ./frontend/public:/usr/local/apache2/htdocs/
-
+      - ./frontend/chestnut_client:/app
+  ### Production build of React Client
+  # public:
+  #   image: httpd
+  #   volumes:
+  #     - ./frontend/public:/usr/local/apache2/htdocs/
