@@ -18,8 +18,29 @@ kill-all-images:
 images:
 	docker-compose build
 
-containers:
+up:
 	docker-compose up -d
+
+down:
+	docker-compose down
+
+create:
+	docker-compose build \
+	&& docker-compose run --rm backend mix.create \
+	&& docker-compose run --rm backend mix.migrate \
+	&& docker-compose up
+
+reset-db:
+	docker-compose down \
+	&& docker-compose run --rm backend mix ecto.reset
+
+###
+### Chestnut Tools ###
+###
+
+create:
+	docker-compose build \
+	&& docker-compose up -d
 
 ###
 ### Backend ###
@@ -30,8 +51,16 @@ backend_mix:
 	docker-compose run --rm backend mix "$@"
 
 # Run
-backend_run:
+backend:
 	docker-compose run --rm backend "$@"
+
+schema:
+	docker-compose run --rm backend mix phx.gen.schema Accounts.User users
 
 # Build
 # docker build -t phoenix:1.3.0 .
+
+
+# Postgres
+see_db:
+	docker exec -it chestnut_db_1 psql -U chestnut -W

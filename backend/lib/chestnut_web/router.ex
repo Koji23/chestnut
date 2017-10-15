@@ -19,6 +19,11 @@ defmodule ChestnutWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/api", ChestnutWeb do
+    pipe_through :api
+    get "/workspaces/:messenger", WorkspaceController, :index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", ChestnutWeb do
   #   pipe_through :api

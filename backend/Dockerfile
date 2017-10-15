@@ -19,4 +19,7 @@ ENV APP_HOME /app
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
+# RUN mix ecto.create \
+#   && mix ecto.migrate
+
 CMD ["mix", "phx.server"]

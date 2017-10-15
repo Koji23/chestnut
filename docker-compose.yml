@@ -17,7 +17,7 @@ services:
       context: .
       dockerfile: ./database/Dockerfile
     volumes:
-       - ./database:/var/lib/postgresql/data
+       - chestnut_db:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=abc123
       - POSTGRES_USER=chestnut
@@ -43,3 +43,5 @@ services:
   #   image: httpd
   #   volumes:
   #     - ./frontend/public:/usr/local/apache2/htdocs/
+volumes:
+  chestnut_db: {}
