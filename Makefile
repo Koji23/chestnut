@@ -25,22 +25,24 @@ down:
 	docker-compose down
 
 create:
-	docker-compose build \
-	&& docker-compose run --rm backend mix.create \
-	&& docker-compose run --rm backend mix.migrate \
+	docker-compose down \
+	&& docker-compose build \
+	&& docker-compose run --rm backend mix ecto.create \
+	&& docker-compose run --rm backend mix ecto.migrate \
 	&& docker-compose up
 
 reset-db:
 	docker-compose down \
 	&& docker-compose run --rm backend mix ecto.reset
 
+migrate:
+	docker-compose run --rm backend mix ecto.migrate
+
 ###
 ### Chestnut Tools ###
 ###
 
-create:
-	docker-compose build \
-	&& docker-compose up -d
+
 
 ###
 ### Backend ###
