@@ -33,7 +33,8 @@ create:
 
 reset-db:
 	docker-compose down \
-	&& docker-compose run --rm backend mix ecto.reset
+	&& docker-compose run --rm backend mix ecto.reset \
+	&& docker-compose up
 
 migrate:
 	docker-compose run --rm backend mix ecto.migrate
@@ -57,7 +58,10 @@ backend:
 	docker-compose run --rm backend "$@"
 
 schema:
-	docker-compose run --rm backend mix phx.gen.schema Accounts.User users
+	docker-compose run --rm backend mix phx.gen.schema # Accounts.User users
+
+routes:
+	docker-compose run --rm backend mix phx.routes
 
 # Build
 # docker build -t phoenix:1.3.0 .

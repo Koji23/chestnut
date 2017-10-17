@@ -21,6 +21,7 @@
 
   <div class="col-lg-6">
     <h4>Help!</h4>
+    <span><%= Phoenix.Controller.get_csrf_token() %></span>
     <ul>
       <li>
         <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>

@@ -17,12 +17,12 @@ defmodule ChestnutWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/users", UserController
   end
 
   scope "/api", ChestnutWeb do
     pipe_through :api
     get "/workspaces/:messenger", WorkspaceController, :index
+    resources "/users", UserController
   end
 
   # Other scopes may use custom stacks.
