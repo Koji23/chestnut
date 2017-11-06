@@ -20,7 +20,9 @@ const Profile = (props) => {
       <div>Profile</div>
       <br />
       {
-        props.profile.id ? <div>{props.profile.id}</div> : <button onClick={props.getProfile}>Get Profile</button>
+        props.profile.id ? 
+          <div>{`${props.profile.first_name} ${props.profile.last_name}`}</div> :
+          <button onClick={props.getProfile}>Get Profile</button>
       }
     </div>
   );
