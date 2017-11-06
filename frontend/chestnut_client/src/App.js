@@ -1,17 +1,23 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
 import theme from './theme';
-import appReducer from './reducers/appReducer';
+import rootReducer from './reducers/rootReducer';
 
 import Header from './components/header/Header';
 import Dashboard from './components/dashboard/Dashboard';
 import Kanban from './components/kanban/Kanban';
+import Profile from './components/profile/Profile';
 
-const store = createStore(appReducer);
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk, logger),
+);
 
 
 const App = () => (
@@ -22,6 +28,7 @@ const App = () => (
           <Header />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/kanban" component={Kanban} />
+          <Route path="/profile" component={Profile} />
         </main>
       </BrowserRouter>
     </Provider>

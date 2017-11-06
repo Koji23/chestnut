@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { UnorderedList, ListItem, Navlink } from './HeaderStyles';
+import { UnorderedList, ListItem, NavLink } from './HeaderStyles';
 
 class Header extends Component {
   constructor(props) {
@@ -14,8 +14,9 @@ class Header extends Component {
     return (
       <div className="Header">
         <UnorderedList>
-          <ListItem><Navlink to='/dashboard'>Home</Navlink></ListItem>
-          <ListItem><Navlink to='/kanban'>Kanban</Navlink></ListItem>
+          <ListItem><NavLink to="/dashboard">Home</NavLink></ListItem>
+          <ListItem><NavLink to="/kanban">Kanban</NavLink></ListItem>
+          <ListItem><NavLink to="/profile">Profile</NavLink></ListItem>
         </UnorderedList>
       </div>
     );

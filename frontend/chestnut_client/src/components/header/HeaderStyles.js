@@ -13,7 +13,7 @@ const ListItem = styled.li`
   color: ${props => props.theme.primary};
 `;
 
-const Navlink = styled(Link)`
+const NavLink = styled(Link)`
   color: white;
   &:visited {
     color: yellow;
@@ -23,5 +23,5 @@ const Navlink = styled(Link)`
 export {
   UnorderedList,
   ListItem,
-  Navlink,
+  NavLink,
 };

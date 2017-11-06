@@ -38,6 +38,8 @@ defmodule ChestnutWeb.Endpoint do
     key: "_chestnut_key",
     signing_salt: "NAon65XC"
 
+  plug CORSPlug
+
   plug ChestnutWeb.Router
 
   @doc """
