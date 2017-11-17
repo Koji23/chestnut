@@ -87,15 +87,6 @@
       "react-app"
     ]
   },
-  "eslintConfig": {
-    "extends": "airbnb",
-    "env": {
-      "browser": true
-    },
-    "rules": {
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
-    }
-  },
   "devDependencies": {
     "eslint": "^4.10.0",
     "eslint-config-airbnb": "^16.1.0",

@@ -117,7 +117,7 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-              
+              emitWarning: true, // *See https://github.com/MoOx/eslint-loader/issues/23
             },
             loader: require.resolve('eslint-loader'),
           },
