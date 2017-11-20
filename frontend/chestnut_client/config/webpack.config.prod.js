@@ -58,7 +58,7 @@ module.exports = {
   // In production, we only want to load the polyfills and the app code.
   entry: {
     main: [require.resolve('./polyfills'), paths.appIndexJs],
-    vendor: ['lodash', 'react', 'react-dom', 'react-redux', 'redux', 'redux-thunk', 'react-router-dom', 'styled-components'],
+    vendor: ['lodash', 'react', 'react-dom', 'react-redux', 'redux', 'redux-thunk', 'react-router-dom', 'styled-components', 'react-loadable'],
   },
   output: {
     // The build folder.
