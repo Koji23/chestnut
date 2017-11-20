@@ -56,7 +56,10 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('./polyfills'), paths.appIndexJs],
+  entry: {
+    main: [require.resolve('./polyfills'), paths.appIndexJs],
+    vendor: ['lodash', 'react', 'react-dom', 'react-redux', 'redux', 'redux-thunk', 'react-router-dom', 'styled-components'],
+  },
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -121,7 +124,7 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-              
+              emitWarning: true, // *See https://github.com/MoOx/eslint-loader/issues/23
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -236,6 +239,7 @@ module.exports = {
     // in `package.json`, in which case it will be the pathname of that URL.
     new InterpolateHtmlPlugin(env.raw),
     // Generates an `index.html` file with the <script> injected.
+    // for each entrypoint specified
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
@@ -321,6 +325,17 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    // Tell webpack to find all modules that are duplicated between the main and
+    // vendor entry points then only add those to vendor
+    new webpack.optimize.CommonsChunkPlugin({
+      // Webpack creates some amount of boilerplate and manifest code that can
+      // change with every build. This will cause untouched entry point bundles
+      // to build with a new chunkhash and cause needless cache busting.
+      // By specifying a name not mentioned in the `entry` configuration
+      // CommonsChunkPlugin will automatically extract what we want into a
+      // separate bundle (https://webpack.js.org/plugins/commons-chunk-plugin/#manifest-file)
+      names: ['vendor', 'manifest'],
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

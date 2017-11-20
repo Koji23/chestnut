@@ -38,10 +38,10 @@ services:
       - '3000:3000'
     volumes:
       - ./frontend/chestnut_client:/app
-  ### Production build of React Client
+  ## Production build of React Client
   # public:
   #   image: httpd
   #   volumes:
-  #     - ./frontend/public:/usr/local/apache2/htdocs/
+  #     - ./frontend/chestnut_client/build/static:/usr/local/apache2/htdocs/
 volumes:
   chestnut_db: {}
