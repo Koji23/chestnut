@@ -19,8 +19,6 @@ const store = createStore(
   applyMiddleware(thunk, logger),
 );
 
-console.log('hiiiiii');
-
 const App = () => (
   <ThemeProvider theme={theme}>
     <Provider store={store}>
